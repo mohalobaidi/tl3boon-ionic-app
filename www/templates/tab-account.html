@@ -1,0 +1,73 @@
+<ion-view view-title="Account">
+  <ion-nav-buttons side="right">
+    <div class="buttons">
+      <button class="button button-icon ion-more " ng-click="popover.show($event)">
+      </button>
+    </div>
+  </ion-nav-buttons>
+  <ion-content has-header="true">
+    <div class="profile">
+      <div class="avatar">
+        <img src="{{user.image | checkImg}}" alt="">
+      </div><div class="sidebar">
+      <div class="header">
+        <div class="name">{{user.first_name +' '+ user.last_name}}</div>
+        <div class="nickname">{{user.username}}</div>
+      </div>
+      <div class="header">
+        <div class="profile-item">
+          <div class="label">AGE</div>
+          <div class="value">&nbsp;{{user.age}}&nbsp;</div>
+        </div><div class="profile-item">
+        <div class="label">POSITION</div>
+        <div class="value">&nbsp;{{user.position.code}}&nbsp;</div>
+      </div><div class="profile-item">
+        <div class="label">MATCHES</div>
+        <div class="value">&nbsp;&nbsp;</div>
+      </div>
+      </div>
+    </div>
+    </div>
+      <ion-list>
+        <div class="card" ng-repeat="match in matches">
+          <ion-item class="item item-avatar" ng-href="#/tab/matches/id/{{match.id}}">
+            <!--{{match.id}} - {{match.creator.username}}-->
+            <img src="http://www.freelanceme.net/Images/default%20profile%20picture.png">
+            <h2>{{match.creator.first_name + " " + match.creator.last_name}}</h2>
+            <p>{{match.place + " " + match.city}}</p>
+            <p>{{match.time}}</p>
+            <span class="badge badge-balanced">{{match.number_of_players_needed}}</span>
+          </ion-item>
+          <div class="item timeline-tabs tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" href="#">
+              <button class="button button-clear button-positive" ng-click="share()">
+                share
+              </button>
+            </a>
+            <a class="tab-item" disabled>
+            </a>
+            <a class="tab-item" href="#">
+              <button class="button button-clear" ng-class="match.is_creator ? 'button-assertive' : 'button-positive'" ng-click="match.is_creator ? deleteMatch($event, $index, match.id) : (match.joined ? unjoinMatch(match.id) : joinMatch(match.id))">
+                {{match.is_creator ? 'delete' : (match.joined ? 'joined' : 'join')}}
+              </button>
+            </a>
+          </div>
+        </div>
+      </ion-list>
+  </ion-content>
+</ion-view>
+<script id="templates/popover.html" type="text/ng-template">
+  <ion-popover-view scroll="false" style="height:  105px; width: 250px">
+    <ion-content>
+      <div class="list">
+        <a class="item" href="#/tab/account/edit" ng-click="popover.hide()">
+          Edit Account
+        </a>
+        <a class="item" ng-click="signOut()">
+          logout
+        </a>
+
+      </div>
+    </ion-content>
+  </ion-popover-view>
+</script>

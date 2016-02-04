@@ -1,0 +1,37 @@
+<ion-view view-title="Matches">
+  <ion-nav-buttons side="right">
+    <div class="button button-clear" ng-click="go('create')">
+      create match
+    </div>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
+  </ion-refresher>
+    <ion-list>
+      <div class="card" ng-repeat="match in matches">
+        <ion-item class="item item-avatar" ng-href="#/tab/matches/id/{{match.id}}">
+         <!--{{match.id}} - {{match.creator.username}}-->
+          <img src="http://www.freelanceme.net/Images/default%20profile%20picture.png">
+          <h2><a href="#/profile/{{match.creator.id}}">{{match.creator.first_name + " " + match.creator.last_name}}</a></h2>
+          <p>{{match.place + " " + match.city}}</p>
+          <p>{{match.time}}</p>
+          <span class="badge badge-balanced">{{match.number_of_players_needed}}</span>
+        </ion-item>
+        <div class="item timeline-tabs tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item" href="#">
+            <button class="button button-clear button-positive" ng-click="share()">
+              share
+            </button>
+          </a>
+          <a class="tab-item" disabled>
+          </a>
+          <a class="tab-item" href="#">
+            <button class="button button-clear" ng-class="match.is_creator ? 'button-assertive' : 'button-positive'" ng-click="match.is_creator ? deleteMatch($event, $index, match.id) : (match.joined ? unjoinMatch(match.id) : joinMatch(match.id))">
+              {{match.is_creator ? 'delete' : (match.joined ? 'joined' : 'join')}}
+            </button>
+          </a>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

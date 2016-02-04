@@ -1,0 +1,39 @@
+<ion-view view-title="Create Match">
+  <ion-content>
+    <form>
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="Place name" ng-model="matches.location">
+        </label>
+        <label class="item range range-positive">
+          <i class="icon ion-ios-people"></i>
+          <input type="range" name="volume" min="2" max="22" value="8" ng-model="matches.players">
+          <span ng-bind="matches.players | players"></span>
+        </label>
+        <label class="item range range-positive">
+          <i class="icon ion-clock"></i>
+          <input type="range" name="volume" min="0" max="10" value="0" ng-model="matches.matchLength">
+          <span ng-bind="matches.matchLength | matchLength"></span>
+        </label>
+        <div class="item row" style="text-align: center">
+          <label class="col">
+            <ionic-timepicker input-obj="timePickerObject">
+              <button class="button button-clear button-positive overflowShow">
+                <standard-time-meridian etime='timePickerObject.inputEpochTime'></standard-time-meridian>
+                <i class="icon ion-clock"></i> {{ matches.time }}
+              </button>
+            </ionic-timepicker>
+          </label>
+          <label class="col">
+            <ionic-datepicker input-obj="datePickerObject">
+              <button class="button button-clear button-positive"> <i class="icon ion-calendar"></i> {{datePickerObject.inputDate | date:'dd - MM - yyyy'}}</button>
+            </ionic-datepicker>
+          </label>
+        </div>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit" ng-click="createMatch()">Create</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

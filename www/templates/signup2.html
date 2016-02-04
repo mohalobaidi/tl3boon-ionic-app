@@ -1,0 +1,27 @@
+<ion-view view-title="signup">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">First Name</span>
+        <input type="text" ng-model="user.fname">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Last Name</span>
+        <input type="text" ng-model="user.lname">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">position</span>
+        <input type="text" ng-model="user.position">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">age</span>
+        <input type="number" ng-model="user.age">
+      </label>
+    </div>
+    <div class="padding">
+      <button class="button button-block button-positive" ng-click="signup(user)">
+        Sign up
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

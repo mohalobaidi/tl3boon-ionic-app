@@ -1,0 +1,44 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="Match Details">
+  <ion-nav-buttons side="left">
+    <button class="button button-clear" ng-click="goBack()">
+      <i class="icon ion-ios-arrow-left"></i>
+      back
+    </button>
+  </ion-nav-buttons>
+  <ion-content>
+
+    <div class="item item-image">
+      <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{match.location}}&markers={{match.location}}&zoom=14&maptype=hybrid&size=560x280&scale=2&key=AIzaSyBxEG5d4l-CXfCOsRrd1U_YjANsmUpyxZw">
+    </div>
+
+    <div class="item item-icon-left item-button-right assertive" href="#">
+      <i class="icon ion-ios-location"></i>
+
+      <button class="button" style="top: inherit" ng-class="match.is_creator ? 'button-assertive' : 'button-positive'" ng-click="match.is_creator ? deleteMatch(match.id) : (match.joined ? unjoinMatch(match.id) : joinMatch(match.id))">
+        {{match.is_creator ? 'delete' : (match.joined ? 'joined' : 'join')}}
+      </button>
+
+          <h2>{{match.place}}</h2>
+
+          <p>{{match.time}}</p>
+
+    </div>
+    <div class="list">
+
+      <a ng-repeat="player in match.players" class="item item-avatar" href="#/profile/{{player.id}}">
+        <img src="{{ player.image | checkImg }}">
+        <h2>{{player.first_name +" "+ player.last_name}}</h2>
+        <p>{{ player.position }}</p>
+      </a>
+
+
+    </div>
+
+</ion-content>
+</ion-view>
