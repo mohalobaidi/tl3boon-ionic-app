@@ -132,17 +132,6 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
       disableDefaultUI: true
     };
 
-    function eventFire(el, etype){
-      if (el.fireEvent) {
-        el.fireEvent('on' + etype);
-      } else {
-        var evObj = document.createEvent('Events');
-        evObj.initEvent(etype, true, false);
-        el.dispatchEvent(evObj);
-      }
-    }
-
-    $timeout(function(){document.querySelector('.pac-container').onmouseover=function(e){eventFire(e.srcElement, 'click');console.log(5)}},5000);
 
     // create map
     map = new google.maps.Map(document.getElementById('map'), $scope.map_options);
@@ -162,35 +151,23 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
       $scope.$apply();
     });
 
-    // Create the search box and link it to the UI element.
-    var input = document.getElementById('pac-input');
-    input.onkeydown = function(){
-      $timeout(function(){
-        if(document.querySelector('.pac-item') != null) {
-          console.log("Working");
-          document.querySelector('.pac-item').setAttribute('data-tap-disabled', 'true');
-          document.querySelector('.pac-item').onmouseover = function (e) {
-            alert("hover");
-            eventFire(e.srcElement, 'mousedown');
-          }
-        }
-        console.log("not Working");
-      },1000);
-    };
-
-    var searchBox = new google.maps.places.Autocomplete(input, {
-      componentRestrictions: {country: "sa"}
-    });
-    searchBox.bindTo('bounds', map);
-
     // Bias the SearchBox results towards current map's viewport.
 
 
     // [START region_getplaces]
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
+
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.Autocomplete(input, {
+      componentRestrictions: {country: "sa"}
+    });
+    searchBox.bindTo('bounds', map);
+
     searchBox.addListener('place_changed', function() {
       var place = searchBox.getPlace();
+      console.log(place);
       if (!place.geometry) {
         window.alert("Autocomplete's returned place contains no geometry");
         return;
@@ -215,9 +192,35 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         ].join(' ');
       }
 
-      infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-      infowindow.open(map, marker);
     });
+
+    input.onkeydown = function(){
+      document.querySelector('.pac-container').style.visibility = 'inherit';
+      $timeout(function(){
+        if(document.querySelector('.pac-item') != null) {
+          console.log("Working");
+          document.querySelector('.pac-container').setAttribute('data-tap-disabled', 'true');
+          document.querySelector('.pac-container').onmouseover = function (e) {
+            if(document.querySelector('.pac-item-selected') != null){
+              document.querySelector('.pac-item-selected').className = "pac-item";
+            }
+            var element = e.srcElement;
+            for (var i = 0; i < 5; i++) {
+              if (element.className == 'pac-item') { break; }
+              console.log(element);
+              element = element.parentNode;
+            }
+            if(element.classList.length < 2){
+              element.className += " pac-item-selected";
+              google.maps.event.trigger( input, 'blur', {} );
+            }else{
+              alert(e.path.length +": "+ JSON.stringify(e.path));
+            }
+          }
+        }
+        console.log("not Working");
+      },1000);
+    };
     // [END region_getplaces]
     var dirService= new google.maps.DirectionsService();
     var dirRenderer= new google.maps.DirectionsRenderer();
