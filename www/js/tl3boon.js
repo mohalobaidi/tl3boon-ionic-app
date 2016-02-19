@@ -1,6 +1,6 @@
 function Tl3boonSDK() {
     //this.apiUrl = "http://api.tl3boon.com" // Production URL
-    this.apiUrl = "http://modsoft.co" // Development URL
+    this.apiUrl = "http://modsoft.co";// Development URL
     this.token = null;
     this.VERBS = {
         GET : "GET",
@@ -12,12 +12,12 @@ function Tl3boonSDK() {
     var cookieManager = new CookiesManager();
     var token = cookieManager.getCookie("token");
     if (token == "" || token == null) {
-      //alert("no cookies for you thank you come again");
+      ////alert("no cookies for you thank you come again");
       //window.location.href = "#login";
       return false;
     }else{
       this.token = token;
-      alert(token);
+      //alert(token);
       return true;
     }
   }
@@ -88,7 +88,7 @@ function Tl3boonSDK() {
     this.uploadImage = function(image,callback){
         var formData = new FormData();
         if (!image.type.match('image.*')) {
-            alert("this is not a image");
+            //alert("this is not a image");
         }
         formData.append('image', image, image.name);
         this.sendRequest("players",this.VERBS.PUT,formData,null,callback);
@@ -196,7 +196,7 @@ function CookiesManager() {
 //    this.checkCookie = function () {
 //        var user = getCookie("username");
 //        if (user != "") {
-//            alert("Welcome again " + user);
+//            //alert("Welcome again " + user);
 //        } else {
 //            user = prompt("Please enter your name:", "");
 //            if (user != "" && user != null) {

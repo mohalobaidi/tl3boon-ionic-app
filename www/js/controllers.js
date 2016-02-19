@@ -4,10 +4,10 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
   .controller('LoginCtrl', function($scope, $state, $rootScope) {
 
     if (sdk.checkCookies() == true){
-      alert(sdk.checkCookies());
+      //alert(sdk.checkCookies());
       $state.go('tab.matches');
     }else{
-      alert(sdk.checkCookies());
+      //alert(sdk.checkCookies());
     }
 
 
@@ -17,9 +17,9 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         if (statusCode == 200) {
           $state.go('tab.matches');
         } else if (statusCode == 400) {
-          alert(statusCode);
+          //alert(statusCode);
         } else {
-          alert(statusCode);
+          //alert(statusCode);
         }
       });
 
@@ -29,10 +29,10 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
 
   .controller('SignupCtrl', function($scope, $state, $rootScope) {
     if (sdk.checkCookies() == true){
-      alert(sdk.checkCookies());
+      //alert(sdk.checkCookies());
       $state.go('tab.matches');
     }else{
-      alert(sdk.checkCookies());
+      //alert(sdk.checkCookies());
     }
 
 
@@ -52,10 +52,10 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
   .controller('Signup2Ctrl', function($scope, $state, $rootScope) {
 
     if (sdk.checkCookies() == true){
-      alert(sdk.checkCookies());
+      //alert(sdk.checkCookies());
       $state.go('tab.matches');
     }else{
-      alert(sdk.checkCookies());
+      //alert(sdk.checkCookies());
     }
 
 
@@ -289,24 +289,27 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     };
 
     $scope.joinMatch = function(id) {
-      alert('join');
+      //alert('join');
       sdk.joinMatch(id,function(data,statusCode){
         if(statusCode == 201){
           alert();
           var myid = arrayObjectIndexOf($scope.matches,id,"id");
-          console.log($scope.matches);
+          console.log(data);
           $scope.matches[myid].joined = true;
+          $scope.matches[myid].number_of_players_needed = $scope.matches[myid].number_of_players_needed - 1;
           $scope.$apply();
         }
       });
     };
 
     $scope.unjoinMatch = function(id) {
-      alert('unjoin');
+      //alert('unjoin');
       sdk.unjoinMatch(id,function(data,statusCode){
         if(statusCode == 204){
+          console.log(data);
           var myid = arrayObjectIndexOf($scope.matches,id,"id");
           $scope.matches[myid].joined = false;
+          $scope.matches[myid].number_of_players_needed = $scope.matches[myid].number_of_players_needed + 1;
           $scope.$apply();
         }
       });
@@ -317,7 +320,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     };
 
     $scope.share = function () {
-      cordova.plugins.socialsharing.share('Digital Signature Maker', null, null, 'https://play.google.com/store/apps/details?id=com.prantikv.digitalsignaturemaker');
+      window.plugins.socialsharing.shareViaTwitter('Digital Signature Maker', null /* img */, 'https://play.google.com/store/apps/details?id=com.prantikv.digitalsignaturemaker', null, function(errormsg){alert("Error: Cannot Share")});
     }
 
   })
@@ -447,7 +450,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     if(sdk.checkCookies() == false){
 
       $state.go('login');
-      alert("going to login page");
+      //alert("going to login page");
 
     } else {
 
@@ -496,7 +499,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     if(sdk.checkCookies() == false){
 
       $state.go('login');
-      alert("going to login page");
+      //alert("going to login page");
 
     }else {
 
@@ -526,7 +529,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     if(sdk.checkCookies() == false){
 
       $state.go('login');
-      alert("going to login page");
+      //alert("going to login page");
 
     }else{
 
@@ -560,9 +563,9 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         if (statusCode == 200) {
           $scope.$broadcast('scroll.refreshComplete');
         } else if (statusCode == 400) {
-          alert(statusCode);
+          //alert(statusCode);
         } else {
-          alert(statusCode);
+          //alert(statusCode);
         }
       });
     };
@@ -592,7 +595,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     };
 
     $scope.joinMatch = function(id) {
-      alert('join');
+      //alert('join');
       sdk.joinMatch(id,function(data,statusCode){
         if(statusCode == 201){
           var myid = arrayObjectIndexOf($scope.matches.data,id,"id");
@@ -603,7 +606,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     };
 
     $scope.unjoinMatch = function(id) {
-      alert('unjoin');
+      //alert('unjoin');
       sdk.unjoinMatch(id,function(data,statusCode){
         if(statusCode == 204){
           var myid = arrayObjectIndexOf($scope.matches.data,id,"id");
@@ -623,10 +626,10 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         if (statusCode == 200) {
           $state.go('login');
         } else if (statusCode == 400) {
-          alert(statusCode);
+          //alert(statusCode);
           $state.go('login');
         } else {
-          alert(statusCode);
+          //alert(statusCode);
           $state.go('login');
         }
       });
@@ -673,14 +676,14 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     if(sdk.checkCookies() == false){
 
       $state.go('login');
-      alert("going to login page");
+      //alert("going to login page");
 
     }else{
 
       sdk.getPlayer($stateParams.id, function(data, statusCode){
         if (statusCode == 200) {
           $scope.user = data;
-          alert(data);
+          //alert(data);
           $scope.$apply();
 
           sdk.getMatchesOfPlayer( $scope.user.id, function (data, statusCode) {
@@ -708,9 +711,9 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         if (statusCode == 200) {
           $scope.$broadcast('scroll.refreshComplete');
         } else if (statusCode == 400) {
-          alert(statusCode);
+          //alert(statusCode);
         } else {
-          alert(statusCode);
+          //alert(statusCode);
         }
       });
     };
@@ -740,7 +743,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     };
 
     $scope.joinMatch = function(id) {
-      alert('join');
+      //alert('join');
       sdk.joinMatch(id,function(data,statusCode){
         if(statusCode == 201){
           var myid = arrayObjectIndexOf($scope.matches.data,id,"id");
@@ -751,7 +754,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     };
 
     $scope.unjoinMatch = function(id) {
-      alert('unjoin');
+      //alert('unjoin');
       sdk.unjoinMatch(id,function(data,statusCode){
         if(statusCode == 204){
           var myid = arrayObjectIndexOf($scope.matches.data,id,"id");
@@ -771,10 +774,10 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         if (statusCode == 200) {
           $state.go('login');
         } else if (statusCode == 400) {
-          alert(statusCode);
+          //alert(statusCode);
           $state.go('login');
         } else {
-          alert(statusCode);
+          //alert(statusCode);
           $state.go('login');
         }
       });
@@ -846,7 +849,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     }
 
     $scope.createMatch = function() {
-      alert($scope.matches.timeDate);
+      //alert($scope.matches.timeDate);
       sdk.createMatch($scope.matches.location,
         $scope.matches.timeDate,
         $rootScope.latLng,
@@ -854,11 +857,11 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         $scope.matches.matchLength,
         function(data,statusCode){
           if (statusCode == 200) {
-            alert();
+            //alert();
             $state.go("tab.matches");
           }else if (statusCode == 400) {
             for (var key in data) {
-              alert(key+" : "+data[key]);
+              //alert(key+" : "+data[key]);
               break;
             };
           }
@@ -897,7 +900,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
  var geocoder = new google.maps.Geocoder();
  geocoder.geocode({ 'latLng': latlng }, function (results, status) {
  if (status !== google.maps.GeocoderStatus.OK) {
- alert(status);
+ //alert(status);
  }
  // This is checking to see if the Geoeode Status is OK before proceeding
  if (status == google.maps.GeocoderStatus.OK) {
@@ -1058,7 +1061,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
  var geocoder = new google.maps.Geocoder();
  geocoder.geocode({ 'latLng': latlng }, function (results, status) {
  if (status !== google.maps.GeocoderStatus.OK) {
- alert(status);
+ //alert(status);
  }
  // This is checking to see if the Geoeode Status is OK before proceeding
  if (status == google.maps.GeocoderStatus.OK) {
@@ -1125,7 +1128,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
  searchBox.addListener('place_changed', function() {
  var place = searchBox.getPlace();
  if (!place.geometry) {
- window.alert("Autocomplete's returned place contains no geometry");
+ window.//alert("Autocomplete's returned place contains no geometry");
  return;
  }
 
@@ -1200,7 +1203,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
  var geocoder = new google.maps.Geocoder();
  geocoder.geocode({ 'latLng': latlng }, function (results, status) {
  if (status !== google.maps.GeocoderStatus.OK) {
- alert(status);
+ //alert(status);
  }
  // This is checking to see if the Geoeode Status is OK before proceeding
  if (status == google.maps.GeocoderStatus.OK) {
