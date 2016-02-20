@@ -785,21 +785,23 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     };
   })
 
-  .controller('CreateFormCtrl', function($scope, $state, $rootScope) {
+  .controller('CreateFormCtrl', function($scope, $state, $rootScope, $filter, $ionicPopup, $ionicHistory) {
 
     $scope.matches = [];
-    $scope.matches.time = '18:00';
+    $scope.matches.time = new Date().getHours()*60*60;
+    $scope.matches.date = ((new Date()).getHours() * 60 * 60);
     $scope.matches.players = 2;
     $scope.matches.matchLength = 0;
 
     $scope.timePickerObject = {
       inputEpochTime: ((new Date()).getHours() * 60 * 60),  //Optional
       step: 15,  //Optional
-      format: 24,  //Optional
+      format: 12,  //Optional
+      titleLabel: '12-hour Format',  //Optional
       setLabel: 'Set',  //Optional
       closeLabel: 'Close',  //Optional
-      setButtonType: 'button-clear button-positive',  //Optional
-      closeButtonType: 'button-clear button-assertive',  //Optional
+      setButtonType: 'button-positive',  //Optional
+      closeButtonType: 'button-stable',  //Optional
       callback: function (val) {    //Mandatory
         timePickerCallback(val);
       }
@@ -813,7 +815,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
       setButtonType : 'button-clear button-positive',  //Optional
       todayButtonType : 'button-clear button-stable',  //Optional
       closeButtonType : 'button-clear button-assertive',  //Optional
-      inputDate: new Date(),  //Optional
+      val: new Date(),  //Optional
       mondayFirst: true,  //Optional
       weekDaysList: ["Sun", "Mon", "Tue", "Wed", "thu", "Fri", "Sat"], //Optional
       monthList: ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"], //Optional
@@ -826,13 +828,14 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
       }
     };
 
-    var timePickerCallback = function (val) {
+    $scope.matches.timeDate = $filter('date')($scope.datePickerObject.val,'yyyy-MM-dd') +" "+ $filter('date')((($scope.matches.time-10800)*1000),'hh:mm a');
+
+    function timePickerCallback(val) {
       if (typeof (val) === 'undefined') {
         console.log('Time not selected');
       } else {
-        var selectedTime = new Date(val * 1000);
-        $scope.matches.time = selectedTime.getUTCHours() + ':' + ("0" + selectedTime.getUTCMinutes()).slice(-2);
-        $scope.matches.timeDate = $scope.matches.date + " " + $scope.matches.time;
+        $scope.matches.time = val;
+        $scope.matches.timeDate = $filter('date')($scope.datePickerObject.val,'yyyy-MM-dd') +" "+ $filter('date')((($scope.matches.time-10800)*1000),'hh:mm a');
       }
     }
 
@@ -840,13 +843,18 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
       if (typeof(val) === 'undefined') {
         console.log('No date selected');
       } else {
-        console.log('Selected date is : ', val)
+        console.log('Selected date is : ', val);
         var selectedDate = new Date(val);
-        $scope.matches.date = (selectedDate.getYear()+1900) + '-' + (selectedDate.getMonth()+1) + '-' + (selectedDate.getDay()-1);
+        $scope.datePickerObject.val = val;
+        $scope.matches.timeDate = $filter('date')($scope.datePickerObject.val,'dd-MM-yyyy') +" "+ $filter('date')((($scope.matches.time-10800)*1000),'hh:mm a');
         console.log($scope.matches.timeDate);
-        $scope.matches.timeDate = $scope.matches.date + " " + $scope.matches.time;
       }
     }
+
+    $scope.goBack = function() {
+      $ionicHistory.goBack();
+      $ionicHistory.goBack();
+    };
 
     $scope.createMatch = function() {
       //alert($scope.matches.timeDate);
@@ -854,19 +862,38 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         $scope.matches.timeDate,
         $rootScope.latLng,
         $scope.matches.players,
-        $scope.matches.matchLength,
+        ([[$scope.matches.matchLength -  parseInt(-1) ] * 15] - parseInt(-15)),
         function(data,statusCode){
-          if (statusCode == 200) {
-            //alert();
-            $state.go("tab.matches");
-          }else if (statusCode == 400) {
+
+          if (statusCode == 201) {
+            $state.go('tab.matches');
+          }else{
             for (var key in data) {
-              //alert(key+" : "+data[key]);
-              break;
+              $scope.showPopup('Error',key+" -: "+data[key])
             };
           }
         }
       );
+    };
+    $scope.showPopup = function(title, template) {
+      $scope.data = {};
+
+      // An elaborate, custom popup
+      var showPopup = $ionicPopup.show({
+        template: template,
+        title: title,
+        scope: $scope,
+        buttons: [
+          {text: 'Cancel'},
+          {
+            text: '<b>ok</b>',
+            type: 'button-assertive',
+            onTap: function (e) {
+
+            }
+          }
+        ]
+      });
     };
   });
 
