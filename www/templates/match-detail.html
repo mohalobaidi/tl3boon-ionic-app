@@ -5,16 +5,12 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="Match Details">
-  <ion-nav-buttons side="left">
-    <button class="button button-clear" ng-click="goBack()">
-      <i class="icon ion-ios-arrow-left"></i>
-      back
-    </button>
-  </ion-nav-buttons>
   <ion-content>
 
     <div class="item item-image">
-      <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{match.location}}&markers={{match.location}}&zoom=14&maptype=hybrid&size=560x280&scale=2&key=AIzaSyBxEG5d4l-CXfCOsRrd1U_YjANsmUpyxZw">
+      <a href="https://google.com/maps/?q={{match.location.replace(' ','')}},10z?hl=ar">
+        <img ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{match.location}}&markers={{match.location}}&zoom=14&maptype=hybrid&size=560x280&scale=2&key=AIzaSyBxEG5d4l-CXfCOsRrd1U_YjANsmUpyxZw">
+      </a>
     </div>
 
     <div class="item item-icon-left item-button-right assertive" href="#">
@@ -26,18 +22,33 @@
 
           <h2>{{match.place}}</h2>
 
-          <p>{{match.time}}</p>
+          <p>by {{match.creator.username}}</p>
 
     </div>
     <div class="list">
+      <div class="item matchPlayers">
+        <a ng-repeat="player in match.players" href="#/profile/{{player.id}}" class="player">
+          <img  src="{{ player.image | checkImg }}">
+          <h2>{{player.first_name +" "+ player.last_name}}</h2>
+        </a>
+        <div class="emptyMessage" ng-show="!match.players.length">No players yet</div>
+      </div>
 
-      <a ng-repeat="player in match.players" class="item item-avatar" href="#/profile/{{player.id}}">
-        <img src="{{ player.image | checkImg }}">
-        <h2>{{player.first_name +" "+ player.last_name}}</h2>
-        <p>{{ player.position }}</p>
-      </a>
+      <div class="item item-icon-left item-button-right" href="#">
+        <i class="icon ion-android-time"></i>
+
+        <h2>{{ MATH.round((([[match.match_length -  15 ] / 15] - 1) | matchLength )).split(':').join((match.match_length < 120) ? 'hour ' : 'hours ') +" minutes"}}</h2>
+
+        <p>{{match.time}}</p>
+
+      </div>
+      <div class="item item-icon-left item-button-right" href="#">
+        <i class="icon ion-ios-pricetags"></i>
+
+        <h2>split amount</h2>
 
 
+      </div>
     </div>
 
 </ion-content>
