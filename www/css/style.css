@@ -144,3 +144,37 @@ ion-nav-view .item-image img {
   color: inherit;
   text-decoration: inherit;
 }
+
+.matchPlayers {
+  overflow-x: auto;
+}
+
+.matchPlayers .emptyMessage {
+  line-height: 128px;
+  text-align: center;
+  display: block;
+}
+.matchPlayers::-webkit-scrollbar {
+  width: 0;
+}
+.matchPlayers .player{
+  display: inline-block;
+  width: 128px;
+  height: 128px;
+  margin: 0 8px;
+  text-decoration: none;
+}
+
+.matchPlayers .player img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: block;
+  border: 4px white solid;
+  -webkit-box-shadow: 0 3px 4px rgba(38,50,56,.2);
+  box-shadow: 0 3px 4px rgba(38,50,56,.2);
+  margin: 0 auto 8px;
+}
+.matchPlayers .player h2 {
+  text-align: center;
+}
