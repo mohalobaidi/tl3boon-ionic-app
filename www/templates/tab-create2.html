@@ -5,10 +5,18 @@
         <label class="item item-input">
           <input type="text" placeholder="Place name" ng-model="matches.location">
         </label>
+        <label class="item item-input">
+          <input type="text" placeholder="description" ng-model="matches.location">
+        </label>
         <label class="item range range-positive">
-          <i class="icon ion-ios-people"></i>
+         <h2>needed players</h2>
           <input type="range" name="volume" min="2" max="22" value="8" ng-model="matches.players">
           <span ng-bind="matches.players | players"></span>
+        </label>
+        <label class="item range range-positive">
+         <h2>existing players</h2>
+          <input type="range" name="volume" min="2" max="22" value="8" ng-model="">
+          <span ng-bind="matches.Eplayers | players"></span>
         </label>
         <label class="item range range-positive">
           <i class="icon ion-clock"></i>
@@ -17,12 +25,12 @@
         </label>
         <div class="item row" style="text-align: center">
           <label class="col">
-            <ionic-timepicker input</-timepicker>-obj="timePickerObject">
+            <ionic-timepicker input-obj="timePickerObject">
               <button class="button button-clear button-positive overflowShow">
                 <standard-time-meridian etime='timePickerObject.inputEpochTime'></standard-time-meridian>
-                <i ionicclass="icon ion-clock"></i>{{ ((matches.time-10800)*1000) | date:' hh:mm a'}}
-          </button>
-
+                <i class="icon ion-clock"></i>{{ ((matches.time-10800)*1000) | date:' hh:mm a'}}
+              </button>
+            </ionic-timepicker>
           </label>
           <label class="col">
             <ionic-datepicker input-obj="datePickerObject">
