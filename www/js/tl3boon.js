@@ -121,6 +121,15 @@ function Tl3boonSDK() {
         var parms = "email="+email+"&username="+username+"&first_name="+firstname+"&last_name="+lastname+"&password1="+password+"&password2="+passwordConfirm+"&position="+position+"&age="+age;
         this.sendRequest("auth/registration",this.VERBS.POST,parms, null,callback);
     };
+    this.registerDeviceForPushNotification = function (tokenID, os, callback) {
+        var parms = "registration_id="+tokenID+"&os="+os;
+        this.sendRequest("notifications", this.VERBS.POST, parms, null, callback);
+    };
+    this.unregisterDeviceFromPushNotification = function (tokenID, os, callback) {
+        var parms = "registration_id="+tokenID+"&os="+os;
+        this.sendRequest("notifications", this.VERBS.DELETE, parms, null, callback);
+
+    };
     this.sendRequest = function(resource,method,paramters,query,callback){
         /****************************
          * Resource is URl of Requested Data
