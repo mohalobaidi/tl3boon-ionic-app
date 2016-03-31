@@ -6,27 +6,28 @@
           <input type="text" placeholder="Place name" ng-model="matches.location">
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="description" ng-model="matches.location">
+          <input type="text" placeholder="notes" ng-model="matches.location">
         </label>
         <label class="item item-input">
-          <span class="input-label">split amount</span>
-          <input type="tel">
+          <input type="tel" placeholder="split amount" ng-model="matches.split">
         </label>
         <label class="item range range-positive">
          <h2>needed players</h2>
-          <input type="range" name="volume" min="2" max="22" value="8" ng-model="matches.players">
-          <span ng-bind="matches.players | players"></span>
+          <input type="range" name="volume" min="2" max="22" value="0" ng-model="matches.nPlayers ">
+          <span ng-bind="matches.nPlayers | players"></span>
         </label>
         <label class="item range range-positive">
          <h2>existing players</h2>
-          <input type="range" name="volume" min="2" max="22" value="8" ng-model="">
-          <span ng-bind="matches.Eplayers | players"></span>
+          <input type="range" name="volume" min="0" max="20" value="0" ng-model="matches.ePlayers">
+          <span ng-bind="matches.ePlayers | players"></span>
         </label>
         <label class="item range range-positive">
-          <i class="icon ion-clock"></i>
+          <h2>match length</h2>
           <input type="range" name="volume" min="0" max="10" value="0" ng-model="matches.matchLength">
           <span ng-bind="matches.matchLength | matchLength"></span>
         </label>
+<textarea id="TextArea" rows='1' ng-keydown="autoExpand($event)" placeholder="notes">
+</textarea>
         <div class="item row" style="text-align: center">
           <label class="col">
             <ionic-timepicker input-obj="timePickerObject">

@@ -422,21 +422,6 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
 
   })
 
-  .controller('ChatsCtrl', function($scope, Chats) {
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
-
-    $scope.chats = Chats.all();
-    $scope.remove = function(chat) {
-      Chats.remove(chat);
-    };
-  })
-
   .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
     $scope.chat = Chats.get($stateParams.chatId);
   })
@@ -790,7 +775,8 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
     $scope.matches = [];
     $scope.matches.time = new Date().getHours()*60*60;
     $scope.matches.date = ((new Date()).getHours() * 60 * 60);
-    $scope.matches.players = 2;
+    $scope.matches.nPlayers = 2,
+      $scope.matches.ePlayers = 0,
     $scope.matches.matchLength = 0;
 
     $scope.timePickerObject = {
@@ -861,7 +847,8 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
       sdk.createMatch($scope.matches.location,
         $scope.matches.timeDate,
         $rootScope.latLng,
-        $scope.matches.players,
+        $scope.matches.nPlayers,
+        $scope.matches.ePlayers,
         ([[$scope.matches.matchLength -  parseInt(-1) ] * 15] - parseInt(-15)),
         function(data,statusCode){
 
@@ -895,6 +882,19 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         ]
       });
     };
+
+    $scope.autoExpand = function(e) {
+      var element = typeof e === 'object' ? e.target : document.getElementById(e);
+      setTimeout(function(){
+        element.style.cssText = 'height:auto; padding:0';
+        //for box-sizing other than "content-box" use:
+        //el.style.cssText = '-moz-box-sizing:content-box';
+        element.style.cssText = 'height:' + (element.scrollHeight + 38) + 'px';
+      },0);
+    };
+    function expand() {
+      $scope.autoExpand('TextArea');
+    }
   });
 
 /*$ionicModal.fromTemplateUrl('templates/tab-create.html', {

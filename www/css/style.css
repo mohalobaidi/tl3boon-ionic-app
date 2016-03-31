@@ -178,3 +178,13 @@ ion-nav-view .item-image img {
 .matchPlayers .player h2 {
   text-align: center;
 }
+
+#TextArea {
+  max-height: 360px;
+  resize: none;
+  height: 56px;
+  padding:10px;
+  width: 100%;
+  line-height: 18px;
+  font-size:14px
+}
