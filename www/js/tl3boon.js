@@ -57,7 +57,7 @@ function Tl3boonSDK() {
     this.addFriend = function(id,callback){
         this.sendRequest("friends/"+id,this.VERBS.POST,null,null,callback);
     };
-    this.createMatch = function(place,time,location,numberOfPlayerNeeded,matchLength,callback){
+    this.createMatch = function(place,time,location,numberOfPlayerNeeded, numberOfExistingPlayers,matchLength,notes,splitAmount,callback){
         var parms = "place="+encodeURIComponent(place)+"&location="+location+"&time="+time+"&match_length="+matchLength+"&number_of_players_needed="+numberOfPlayerNeeded;
         console.log(parms);
         this.sendRequest("matches",this.VERBS.POST,parms,null,callback);
