@@ -6,9 +6,6 @@
           <input type="text" placeholder="Place name" ng-model="matches.location">
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="notes" ng-model="matches.location">
-        </label>
-        <label class="item item-input">
           <input type="tel" placeholder="split amount" ng-model="matches.split">
         </label>
         <label class="item range range-positive">
@@ -26,7 +23,7 @@
           <input type="range" name="volume" min="0" max="10" value="0" ng-model="matches.matchLength">
           <span ng-bind="matches.matchLength | matchLength"></span>
         </label>
-<textarea id="TextArea" rows='1' ng-keydown="autoExpand($event)" placeholder="notes">
+<textarea id="TextArea" rows='1' ng-keydown="autoExpand($event)" placeholder="notes" ng-model="matches.notes">
 </textarea>
         <div class="item row" style="text-align: center">
           <label class="col">
