@@ -862,7 +862,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
       };
     })
 
-    .controller('CreateFormCtrl', function($scope, $state, $rootScope, $filter, $ionicPopup, $ionicHistory) {
+    /*.controller('CreateFormCtrl', function($scope, $state, $rootScope, $filter, $ionicPopup, $ionicHistory) {
 
       $scope.matches = [];
       $scope.matches.time = new Date().getHours()*60*60;
@@ -931,7 +931,7 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         });
 
       };
-    })
+    })*/
 
     .controller('CreateFormCtrl', function($scope, $state, $rootScope, $filter, $ionicPopup, $ionicHistory) {
 
@@ -1013,6 +1013,8 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
             $scope.matches.nPlayers,
             $scope.matches.ePlayers,
             ([[$scope.matches.matchLength -  parseInt(-1) ] * 15] - parseInt(-15)),
+            $scope.matches.notes,
+            $scope.matches.split,
             function(data,statusCode){
 
               if (statusCode == 201) {
