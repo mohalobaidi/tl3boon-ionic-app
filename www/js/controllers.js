@@ -1040,30 +1040,6 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
       function expand() {
         $scope.autoExpand('TextArea');
       }
-      $scope.goBack = function() {
-        $ionicHistory.goBack();
-        $ionicHistory.goBack();
-      };
-
-      $scope.createMatch = function() {
-        //alert($scope.matches.timeDate);
-        sdk.createMatch($scope.matches.location,
-            $scope.matches.timeDate,
-            $rootScope.latLng,
-            $scope.matches.players,
-            ([[$scope.matches.matchLength -  parseInt(-1) ] * 15] - parseInt(-15)),
-            function(data,statusCode){
-
-              if (statusCode == 201) {
-                $state.go('tab.matches');
-              }else{
-                for (var key in data) {
-                  $scope.showPopup('Error',key+" -: "+data[key])
-                }
-              }
-            }
-        );
-      };
       $scope.showPopup = function(title, template) {
         $scope.data = {};
 
