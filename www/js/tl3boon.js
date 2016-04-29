@@ -58,7 +58,7 @@ function Tl3boonSDK() {
         this.sendRequest("friends/"+id,this.VERBS.POST,null,null,callback);
     };
     this.createMatch = function(place,time,location,numberOfPlayerNeeded, numberOfExistingPlayers,matchLength,notes,splitAmount,callback){
-        var parms = "place="+encodeURIComponent(place)+"&location="+location+"&time="+time+"&match_length="+matchLength+"&number_of_players_needed="+numberOfPlayerNeeded;
+        var parms = "place="+encodeURIComponent(place)+"&location="+location+"&time="+time+"&match_length="+matchLength+"&number_of_players_needed="+numberOfPlayerNeeded+"&number_of_existing_players="+numberOfExistingPlayers+"&notes="+notes+"&split_amount="+splitAmount;
         console.log(parms);
         this.sendRequest("matches",this.VERBS.POST,parms,null,callback);
     };
