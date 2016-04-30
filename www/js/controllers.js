@@ -148,7 +148,12 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
 
     })
 
-    .controller('CreateMapCtrl', function($scope, $state, $rootScope, $timeout, $cordovaGeolocation) {
+    .controller('CreateMapCtrl', function($scope, $state, $rootScope, $timeout, $ionicHistory, $cordovaGeolocation) {
+
+      $scope.goBack = function() {
+        $ionicHistory.goBack();
+        $state.go('tab.matches');
+      };
 
       $scope.latLng = new google.maps.LatLng(24.6333, 46.7167);
 
@@ -193,7 +198,9 @@ angular.module('starter.controllers', ['ionic','ngCordova'])
         if(document.getElementById('createNext').hasAttribute("disabled")){
           document.getElementById('createNext').removeAttribute("disabled");
           document.getElementById('createNext').className += ' button-positive';}
-        document.getElementById('createNext').setAttribute("href","#/create/"+latLng.lat()+","+latLng.lng());
+        document.getElementById('createNext').onclick = function(){
+          $state.go("createForm", {latLng: +latLng.lat()+","+latLng.lng()});
+        }
         $scope.$apply();
         //map.panTo(latLng);
       }
