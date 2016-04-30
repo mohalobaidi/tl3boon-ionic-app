@@ -75,7 +75,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 controller: 'CreateMapCtrl'
             })
 
-            .state('create2', {
+            .state('createForm', {
                 url: '/create/:latLng',
                 templateUrl: 'templates/tab-create2.html',
                 controller: 'CreateFormCtrl'
@@ -84,7 +84,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             // setup an abstract state for the tabs directive
 
             .state('tab', {
-                url: '/tab',
                 abstract: true,
                 templateUrl: 'templates/tabs.html'
             })
